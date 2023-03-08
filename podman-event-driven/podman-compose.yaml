@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  quarkus-client:
+    image: quay.io/narathod/ansible-event-driven:v4
+    hostname: eda-quarkus
+    restart: on-failure
+    ports: 5000:5000
