@@ -1,23 +1,7 @@
 ---
-- name: Listen for events on a webhook
+- name: say thanks
   hosts: localhost
-  ## Define our source for events
-  sources:
-    - ansible.eda.webhook:
-        host: 0.0.0.0
-        port: 5000
-  ## Define the conditions we are looking for
-  rules:
-    - name: Say Hello
-      condition: event.payload.message == "Ansible is super cool"
-  ## Define the action we should take should the condition be met
-      action:
-        run_playbook:
-          name: say-what.yml
-    - name: Say fetastic
-      condition: event.payload.message == "Ansible is fentastic"
-  ## Define the action we should take should the condition be met
-      action:
-        run_playbook:
-          name: say-what.yml
-
+  gather_facts: false
+  tasks:
+    - debug:
+        msg: "Thank you, {{ event.sender | default('my friend') }}!"
