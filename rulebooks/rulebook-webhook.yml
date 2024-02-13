@@ -29,5 +29,5 @@
       condition: event.payload.message == "Ansible is super cool"
   ## Define the action we should take should the condition be met
       run_job_template:
-        name: eda-test
-        organization: Default
+        name: "eda-test"
+        organization: "Default"
