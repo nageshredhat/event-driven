@@ -1,17 +1,33 @@
-- name: Listen for storage-monitor events
+# - name: Listen for storage-monitor events
+#   hosts: all
+#   sources:
+#     - ansible.eda.webhook:
+#         host: 0.0.0.0
+#         port: 5001
+#   rules:
+#     - name: Rule - Print event information
+#     condition: event.meta.headers is defined
+#     action:
+#       run_job_template:
+#         name: eda-test
+#         organization: Default
+#         # job_args:
+#         #   extra_vars:
+#         #      message: from eda
+#         #      sleep: 1
+---
+- name: Listen for events on a webhook
   hosts: all
+  ## Define our source for events
   sources:
     - ansible.eda.webhook:
         host: 0.0.0.0
         port: 5001
+  ## Define the conditions we are looking for
   rules:
-    - name: Rule - Print event information
-    condition: event.meta.headers is defined
-    action:
+    - name: Say Hello
+      condition: event.payload.message == "Ansible is super cool"
+  ## Define the action we should take should the condition be met
       run_job_template:
-        name: StorageRemediation
+        name: eda-test
         organization: Default
-        job_args:
-          extra_vars:
-             message: from eda
-             sleep: 1
